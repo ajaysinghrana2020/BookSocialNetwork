@@ -2,10 +2,7 @@ package com.ajay.bookNetwork.user;
 
 import com.ajay.bookNetwork.role.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -24,6 +21,7 @@ import java.util.stream.Collectors;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "_user")
 @EntityListeners(AuditingEntityListener.class)
@@ -31,7 +29,7 @@ public class User implements UserDetails , Principal {
 
     @Id
     @GeneratedValue
-    private  Integer id;
+    private Integer id;
     private String firstname;
     private String lastname;
     private LocalDate dateOfBirth;
@@ -89,5 +87,8 @@ public class User implements UserDetails , Principal {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+    public String fullName(){
+        return firstname+" "+ lastname;
     }
 }

@@ -28,9 +28,23 @@ spring:
         connectiontimout: 5000
         timeout: 3000
         writetimeout: 5000
+  thymeleaf:
+    prefix:
+      classpath: /templates/
+    suffix=:
+      .html
 
 application:
   security:
     jwt:
       secret-key: ajay
       expiration: 8640000
+  mailing:
+    frontend:
+      activation-url: http://localhost:4200/activate-account
+
+
+
+
+server:
+  port: 8080

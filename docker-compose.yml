@@ -1,13 +1,13 @@
 services:
   postgres:
-    container_name: postgres-sql-bsn
+    container_name: postgres-sql
     image: postgres
     environment:
       POSTGRES_USER: username
       POSTGRES_PASSWORD: password
       PGDATA: /var/lib/postgresql/data
       POSTGRES_DB: book_social_network
-    valumes:
+    volumes:
       - postgres:/data/postgres
     ports:
       - 5432:5432
@@ -16,19 +16,18 @@ services:
     restart: unless-stopped
 
   mail-dev:
-    container_name: mail-dev-bsn
+    container_name: nice_sinoussi
     image: maildev/maildev
     ports:
       - 1080:1080
       - 1025:1025
+    networks:
+      - spring-demo
 
+networks:
+  spring-demo:
+    driver: bridge
 
-  networks:
-    spring-demo:
-      driver: bridge
-
-
-  volumes:
-    postgres:
-      driver: local
-
+volumes:
+  postgres:
+    driver: local
