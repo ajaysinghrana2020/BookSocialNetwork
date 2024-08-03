@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,13 +20,13 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "_user")
 @EntityListeners(AuditingEntityListener.class)
-public class User implements UserDetails , Principal {
+public class User implements UserDetails, Principal {
 
     @Id
     @GeneratedValue
@@ -38,24 +39,22 @@ public class User implements UserDetails , Principal {
     private String password;
     private boolean accountLocked;
     private boolean enabled;
-    @CreatedDate
-    @Column(nullable = false,updatable = false)
-    private LocalDateTime createdDate;
-    @LastModifiedBy
-    @Column(insertable = false)
-    private LocalDateTime lastUpdatedDate;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
-    @Override
-    public String getName() {
-        return email;
-    }
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdDate;
+
+    @LastModifiedDate
+    @Column(insertable = false)
+    private LocalDateTime lastModifiedDate;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles.stream()
-                .map(r-> new SimpleGrantedAuthority(r.getName()))
+        return this.roles
+                .stream()
+                .map(r -> new SimpleGrantedAuthority(r.getName()))
                 .collect(Collectors.toList());
     }
 
@@ -88,7 +87,17 @@ public class User implements UserDetails , Principal {
     public boolean isEnabled() {
         return enabled;
     }
-    public String fullName(){
-        return firstname+" "+ lastname;
+
+    public String fullName() {
+        return getFirstname() + " " + getLastname();
+    }
+
+    @Override
+    public String getName() {
+        return email;
+    }
+
+    public String getFullName() {
+        return firstname + " " + lastname;
     }
 }
