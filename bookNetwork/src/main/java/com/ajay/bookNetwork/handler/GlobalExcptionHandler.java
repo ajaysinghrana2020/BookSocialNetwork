@@ -1,4 +1,5 @@
 package com.ajay.bookNetwork.handler;
+import com.ajay.bookNetwork.exception.OperationNotPermittedException;
 import  jakarta.mail.MessagingException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,6 +21,10 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 @RestControllerAdvice
 public class GlobalExcptionHandler {
+    //whenever we face a excption we need to handle it
+    //why
+    // if we deploy this in prod and then face any error what we will do we
+    // cant give sisout that thime like in local so thats whyyyy.
 
     @ExceptionHandler(LockedException.class)
     public ResponseEntity<ExceptionResponse> handleException(LockedException exp) {
@@ -103,4 +108,15 @@ public class GlobalExcptionHandler {
                                 .build()
                 );
     }
+    @ExceptionHandler(OperationNotPermittedException.class)
+    public ResponseEntity<ExceptionResponse> handleException(OperationNotPermittedException exp) {
+        return ResponseEntity
+                .status(BAD_REQUEST)
+                .body(
+                        ExceptionResponse.builder()
+                                .errorCode(exp.getMessage())
+                                .build()
+                );
+    }
+
 }

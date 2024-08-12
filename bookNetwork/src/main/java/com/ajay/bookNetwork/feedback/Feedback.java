@@ -1,5 +1,6 @@
 package com.ajay.bookNetwork.feedback;
 
+import com.ajay.bookNetwork.book.Book;
 import com.ajay.bookNetwork.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,12 +20,13 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 public class Feedback  extends BaseEntity {
 
     private Double note;
     private String comment;
 
-
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private Book book;
 }

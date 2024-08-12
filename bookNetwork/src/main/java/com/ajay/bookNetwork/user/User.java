@@ -1,5 +1,7 @@
 package com.ajay.bookNetwork.user;
 
+import com.ajay.bookNetwork.book.Book;
+import com.ajay.bookNetwork.history.BookTransectionHistory;
 import com.ajay.bookNetwork.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -41,6 +43,14 @@ public class User implements UserDetails, Principal {
     private boolean enabled;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
+
+    // one            owner( feald in Book class)    can have many
+    // books
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
+
+    @OneToMany(mappedBy = "user")
+    private List<BookTransectionHistory> histories;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
