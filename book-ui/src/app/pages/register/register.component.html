@@ -10,30 +10,30 @@
 
       <mat-form-field class="full-width" >
         <mat-label>First Name</mat-label>
-        <input matInput type="name" name="firstname" placeholder="Enter your First Name"
+        <input [(ngModel)]="registerRequest.firstname" matInput type="name" name="firstname" placeholder="Enter your First Name"
                required>
       </mat-form-field>
 
       <mat-form-field class="full-width">
         <mat-label>Last Name</mat-label>
-        <input  matInput name="lname" type="lastname" placeholder="Enter your Last Name"
+        <input [(ngModel)]="registerRequest.lastname" matInput name="lname" type="lastname" placeholder="Enter your Last Name"
                required>
       </mat-form-field>
 
       <mat-form-field class="full-width">
         <mat-label>Email</mat-label>
-        <input matInput type="password" name="email" placeholder="ex:- abc@xyz.com" required>
+        <input [(ngModel)]="registerRequest.email" matInput type="email" name="email" placeholder="ex:- abc@xyz.com" required>
       </mat-form-field>
 
       <mat-form-field class="full-width">
         <mat-label>Password</mat-label>
-        <input matInput type="password" name="password" required>
+        <input [(ngModel)]="registerRequest.password" matInput type="password" name="password" required>
       </mat-form-field>
       <div class="register-link">
         <span>Already having a account..</span>
         <a routerLink="/login" class="register-button">Login</a>
       </div>
-      <button mat-raised-button color="primary" type="submit" class="full-width">Register</button>
+      <button mat-raised-button (click)="register()" color="primary" type="submit" class="full-width">Register</button>
     </mat-card-content>
   </mat-card>
 </div>
