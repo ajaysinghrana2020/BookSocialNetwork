@@ -1,0 +1,31 @@
+<div class="login-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+
+      <div class="alert alert-danger" role="alert" *ngIf="errorMsg.length">
+        <p *ngFor="let msg of errorMsg">{{ msg }}</p>
+      </div>
+
+      <mat-form-field class="full-width">
+        <mat-label>Email ID</mat-label>
+        <input [(ngModel)]="authRequest.email" name="email" matInput type="email" placeholder="Enter your email ID"
+               required>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Password</mat-label>
+        <input [(ngModel)]="authRequest.password" name="password" matInput type="password"
+               placeholder="Enter your password" required>
+      </mat-form-field>
+      <div class="register-link">
+        <span>Don't have an account?</span>
+        <a href="/register" class="register-button">Register</a>
+      </div>
+      <button (click)="login()" mat-raised-button color="primary" class="full-width">Login</button>
+
+    </mat-card-content>
+  </mat-card>
+</div>

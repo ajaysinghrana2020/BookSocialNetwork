@@ -1,8 +1,7 @@
 package com.ajay.bookNetwork.book;
 
-import com.ajay.bookNetwork.book.Book;
-import com.ajay.bookNetwork.book.BookRequest;
-import com.ajay.bookNetwork.history.BookTransectionHistory;
+import com.ajay.bookNetwork.file.FileUtils;
+import com.ajay.bookNetwork.history.BookTransactionHistory;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,10 +31,11 @@ public class BookMapper{
                 .archived(book.isArchived())
                 .shareable(book.isShareable())
                 .owner(book.getOwner().fullName())
+                .cover(FileUtils.readFileFromLocation(book.getBookCover()))
                 .build();
     }
 
-    public BorrowedBookResponse toBorrowedBookResponse(BookTransectionHistory history) {
+    public BorrowedBookResponse toBorrowedBookResponse(BookTransactionHistory history) {
         return BorrowedBookResponse.builder()
                 .id(history.getBook().getId())
                 .title(history.getBook().getTitle())

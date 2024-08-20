@@ -2,21 +2,15 @@ package com.ajay.bookNetwork.book;
 
 import com.ajay.bookNetwork.common.BaseEntity;
 import com.ajay.bookNetwork.feedback.Feedback;
-import com.ajay.bookNetwork.history.BookTransectionHistory;
+import com.ajay.bookNetwork.history.BookTransactionHistory;
 import com.ajay.bookNetwork.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.OptionalDouble;
 
 @Entity
 @SuperBuilder
@@ -45,7 +39,7 @@ public class Book extends BaseEntity {
     private List<Feedback> feedbacks;
 
     @OneToMany(mappedBy = "book")
-    private List<BookTransectionHistory> histories;
+    private List<BookTransactionHistory> histories;
 
 
     @Transient

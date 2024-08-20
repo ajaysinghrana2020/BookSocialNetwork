@@ -1,12 +1,11 @@
 package com.ajay.bookNetwork.user;
 
 import com.ajay.bookNetwork.book.Book;
-import com.ajay.bookNetwork.history.BookTransectionHistory;
+import com.ajay.bookNetwork.history.BookTransactionHistory;
 import com.ajay.bookNetwork.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
@@ -50,7 +49,7 @@ public class User implements UserDetails, Principal {
     private List<Book> books;
 
     @OneToMany(mappedBy = "user")
-    private List<BookTransectionHistory> histories;
+    private List<BookTransactionHistory> histories;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

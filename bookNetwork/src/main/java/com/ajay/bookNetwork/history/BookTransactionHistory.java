@@ -18,7 +18,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class BookTransectionHistory extends BaseEntity {
+public class BookTransactionHistory extends BaseEntity {
 
     // user relationships &&
     @ManyToOne
