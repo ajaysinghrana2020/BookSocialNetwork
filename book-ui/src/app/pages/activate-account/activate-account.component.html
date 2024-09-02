@@ -1,0 +1,33 @@
+<div class="login-container">
+  <div class="login-container" *ngIf="submitted else codeForm">
+    <div class="acitvate-message" *ngIf="isOkay else activationError">
+      <h2>Activation Successful</h2>
+      <p>Your Account has been SuccessFully activated.</p>
+      <button (click)="redirectToLogin()">Go To Login Page...</button>
+    </div>
+    <ng-template #activationError>
+      <div class="acitvate-error" >
+        <h2>Activation Failed</h2>
+        <p>{{message}}</p>
+        <button (click)="submitted=false">Try Again</button>
+      </div>
+    </ng-template>
+  </div>
+  <ng-template  #codeForm>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        Type your activation Code:
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <code-input
+        [isCodeHidden]="false"
+        [codeLength]="7"
+        [code]="'number'"
+        (codeCompleted)="onCodeCompleated($event)"
+      ></code-input>
+    </mat-card-content>
+  </mat-card>
+  </ng-template>
+</div>

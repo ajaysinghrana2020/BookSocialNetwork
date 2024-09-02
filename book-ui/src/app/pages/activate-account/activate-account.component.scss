@@ -1,0 +1,49 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;          /* Full height of the viewport */
+  padding: 20px;          /* Padding for better mobile responsiveness */
+  box-sizing: border-box; /* Ensures padding is included in width calculations */
+}
+
+mat-card {
+  width: 100%;
+  max-width: 400px;       /* Limit the width of the card */
+  padding: 20px;          /* Inner padding for content spacing */
+}
+.full-width {
+  width: 100%;            /* Ensure elements take up the full width */
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;              /* Space between form elements */
+}
+
+button.full-width {
+  margin-top: 20px;       /* Additional margin above the button */
+}
+
+register-link {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.register-link span {
+  margin-right: 5px;
+}
+
+.register-button {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.register-button:hover {
+  color: #0056b3;
+}

@@ -1,0 +1,65 @@
+/* Ensure toolbar elements are properly spaced */
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* Style for the search input field */
+.search-container form {
+  display: flex;
+  align-items: center;
+}
+
+/* Set max width for search input */
+mat-form-field {
+  max-width: 300px;
+  width: 100%;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  /* Stack navigation items vertically on small screens */
+  mat-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Add some padding to the toolbar */
+  mat-toolbar a, .search-container {
+    width: 100%;
+    text-align: left;
+    padding: 8px 16px;
+  }
+
+  /* Ensure the search bar is full width */
+  .search-container form {
+    width: 100%;
+  }
+
+  /* Space out the navigation items */
+  mat-toolbar a {
+    margin-bottom: 5px;
+  }
+}
+
+/* Extra small screens */
+@media screen and (max-width: 480px) {
+  mat-toolbar {
+    padding: 8px;
+  }
+
+  /* Reduce padding for links */
+  mat-toolbar a {
+    padding: 6px 12px;
+  }
+
+  /* Smaller input box */
+  mat-form-field {
+    max-width: 200px;
+  }
+}
+a{
+  //background-color: aliceblue;
+&.active{
+  color: #007bff;
+}
+}

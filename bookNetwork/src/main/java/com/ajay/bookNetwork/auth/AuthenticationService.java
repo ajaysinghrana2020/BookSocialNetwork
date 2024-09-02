@@ -12,19 +12,16 @@ import com.ajay.bookNetwork.user.UserRepository;
 import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import java.lang.reflect.InvocationTargetException;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 @Service
@@ -56,7 +53,7 @@ public class AuthenticationService {
                 .roles(List.of(userRole))
                 .build();
         userRepository.save(user);
-        sendValidationEmail(user);
+        sendValidationEmail(user,null);
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -85,35 +82,41 @@ public class AuthenticationService {
                 // todo exception has to be defined
                 .orElseThrow(() -> new RuntimeException("Invalid token"));
         if (LocalDateTime.now().isAfter(savedToken.getExpiredAt())) {
-            sendValidationEmail(savedToken.getUser());
+            sendValidationEmail(savedToken.getUser(),savedToken);
             throw new RuntimeException("Activation token has expired. A new token has been send to the same email address");
         }
 
         var user = userRepository.findById(savedToken.getUser().getId())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         user.setEnabled(true);
+        System.out.println(user.getFirstname() + " " + user.getLastname());
         userRepository.save(user);
-
         savedToken.setValidatedAt(LocalDateTime.now());
         tokenRepository.save(savedToken);
     }
 
-    private String generateAndSaveActivationToken(User user) {
+    private String generateAndSaveActivationToken(User user,Token savedToken) {
         // Generate a token
-        String generatedToken = generateActivationCode(6);
-        var token = Token.builder()
-                .token(generatedToken)
-                .createdAt(LocalDateTime.now())
-                .expiredAt(LocalDateTime.now().plusMinutes(15))
-                .user(user)
-                .build();
-        tokenRepository.save(token);
-
+        String generatedToken = generateActivationCode(7);
+        if(savedToken == null) {
+            var token = Token.builder()
+                    .token(generatedToken)
+                    .createdAt(LocalDateTime.now())
+                    .expiredAt(LocalDateTime.now().plusMinutes(15))
+                    .user(user)
+                    .validatedAt(LocalDateTime.now())
+                    .build();
+            tokenRepository.save(token);
+        }
+        else {
+            savedToken.setToken(generatedToken);
+            tokenRepository.save(savedToken);
+        }
         return generatedToken;
     }
 
-    private void sendValidationEmail(User user) throws MessagingException {
-        var newToken = generateAndSaveActivationToken(user);
+    private void sendValidationEmail(User user,Token savedToken) throws MessagingException {
+        var newToken = generateAndSaveActivationToken(user,savedToken);
 
         emailService.sendEmail(
                 user.getEmail(),
