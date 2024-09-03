@@ -27,8 +27,8 @@ public class BaseEntity {
     private Integer id;
     //updatable means we are notable to aupdate thsis feald
     @CreatedDate
-    @Column(updatable = false,nullable = false)
-    private LocalDateTime creationDate;
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdDate;
 
     //insertable isme hum Insert query se data insert ni kar paaenge
     //LastModifiedDate isme hum jab bhi query run karenge update ke liye  tab chalega or update hoga date

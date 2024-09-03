@@ -32,7 +32,6 @@ export class BookListComponent implements OnInit{
         this.bookResponse=books;
       }
     })
-
   }
 
 }
