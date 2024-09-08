@@ -38,6 +38,7 @@ export class LoginComponent {
   errorMsg:Array<string>=[];
 
   login(){
+    console.log("clickend");
     this.errorMsg=[];
     this.authService.authenticate({
       body:this.authRequest
@@ -45,6 +46,7 @@ export class LoginComponent {
       next:(res:AuthenticationResponse):void=>{
         // first we want to save the token
         this.tokenService.token=res.token as string;
+        localStorage.setItem('token',res.token as string);
         this.router.navigate(['books']);
       },
       error:(err):void=>{

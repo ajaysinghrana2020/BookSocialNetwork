@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {MenuComponent} from "./component/menu/menu.component";
+// import {MenuComponent} from "./component/menu/menu.component";
 import {MainpageComponent} from "./pages/mainpage/mainpage.component";
 import {BookListComponent} from "./pages/book-list/book-list.component";
 
@@ -10,7 +10,7 @@ const routes: Routes = [
     component: MainpageComponent,
     children: [
       {
-        path: 'books',
+        path: '',
         component: BookListComponent
       }
     ]

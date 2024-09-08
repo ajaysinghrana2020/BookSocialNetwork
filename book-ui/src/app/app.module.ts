@@ -39,6 +39,7 @@ import {httpIntrceptInterceptor} from "./services/interceptor/http-intrcept.inte
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
+    // provideHttpClient()
     provideHttpClient(withInterceptors([httpIntrceptInterceptor])),
   ],
   bootstrap: [AppComponent]

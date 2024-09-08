@@ -3,13 +3,23 @@ import {BookService} from "../../../../services/services/book.service";
 import {Router} from "@angular/router";
 import {PageResponseBookResponse} from "../../../../services/models/page-response-book-response";
 import {NgForOf} from "@angular/common";
+import {MatGridList, MatGridTile} from "@angular/material/grid-list";
+import {MatCard, MatCardActions, MatCardContent, MatCardImage} from "@angular/material/card";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-book-list',
   standalone: true,
   templateUrl: './book-list.component.html',
   imports: [
-    NgForOf
+    NgForOf,
+    MatGridList,
+    MatGridTile,
+    MatCard,
+    MatCardImage,
+    MatCardContent,
+    MatCardActions,
+    MatButton
   ],
   styleUrl: './book-list.component.scss'
 })
@@ -33,5 +43,37 @@ export class BookListComponent implements OnInit{
       }
     })
   }
+
+  books= [
+    {
+      title: 'The Great Gatsby',
+      author: 'F. Scott Fitzgerald',
+      description: 'A novel about the American dream.',
+      coverUrl: 'assets/gatsby.jpg',
+      price: 10.99
+    },
+    {
+      title: '1984',
+      author: 'George Orwell',
+      description: 'A dystopian novel about totalitarianism.',
+      coverUrl: 'assets/1984.jpg',
+      price: 12.99
+    },
+    {
+      title: 'The Great Gatsby',
+      author: 'F. Scott Fitzgerald',
+      description: 'A novel about the American dream.',
+      coverUrl: 'assets/gatsby.jpg',
+      price: 10.99
+    },
+    {
+      title: '1984',
+      author: 'George Orwell',
+      description: 'A dystopian novel about totalitarianism.',
+      coverUrl: 'assets/1984.jpg',
+      price: 12.99
+    },
+    // Add more books as needed
+  ];
 
 }
